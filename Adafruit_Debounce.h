@@ -27,6 +27,7 @@ private:
   bool _polarity;
   bool _buttonState;
   bool _lastButtonState;
+  uint32_t _lastPressTime;
 };
 
 #endif // ADAFRUIT_DEBOUNCE_H
