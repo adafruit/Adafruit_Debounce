@@ -30,6 +30,7 @@ Adafruit_Debounce::Adafruit_Debounce(int16_t pin, bool polarity) {
   _polarity = polarity;
   _buttonState = !_polarity;
   _lastButtonState = !_polarity;
+  _lastPressTime = 0; 
 }
 
 /**
@@ -92,6 +93,12 @@ void Adafruit_Debounce::update() {
   if (_pin >= 0) {
     _lastButtonState = _buttonState;
     _buttonState = digitalRead(_pin);
+
+    if (_lastButtonState != _buttonState) {
+      if (_buttonState == _polarity) {
+        _lastPressTime = millis();
+      }
+    }
   }
 }
 
@@ -104,6 +111,12 @@ void Adafruit_Debounce::update() {
 void Adafruit_Debounce::update(bool bit) {
   _lastButtonState = _buttonState;
   _buttonState = bit;
+  
+  if (_lastButtonState != _buttonState) {
+    if (_buttonState == _polarity) {
+      _lastPressTime = millis();
+    }
+  }
 }
 
 /**
@@ -142,4 +155,19 @@ bool Adafruit_Debounce::justPressed() {
  */
 bool Adafruit_Debounce::justReleased() {
   return (_buttonState != _lastButtonState) && (_buttonState != _polarity);
+}
+
+/**
+ * @brief Check if the button is long pressed
+ *
+ * @return true If the button is pressed for longer than duration specified
+ * @return false Otherwise.
+ */
+bool Adafruit_Debounce::isLongPressed(uint32_t duration) {
+    if (isPressed()) {
+        uint32_t elapsedTime = millis() - _lastPressTime;
+        return elapsedTime >= duration;
+    }
+    _lastPressTime = 0;
+    return false;
 }
