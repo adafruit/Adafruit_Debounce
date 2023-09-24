@@ -21,6 +21,7 @@ public:
   bool isReleased();
   bool justPressed();
   bool justReleased();
+  bool isLongPressed(unsigned long duration);
 
 private:
   int16_t _pin;
