@@ -6,6 +6,9 @@
 // Create a debounce object for the button, which will be pressed when LOW
 Adafruit_Debounce button(BUTTON_PIN, LOW);
 
+//long press duration in millis
+uint32_t longPressDuration = 500; 
+
 void setup() {
   // Start the serial communication
   Serial.begin(115200);
@@ -27,6 +30,10 @@ void loop() {
     Serial.println("Button was just released!");
   }
 
+  if (button.isLongPressed(longPressDuration)) {
+    Serial.println("Button is long pressed!");
+    delay(250);
+  }
   // Add a small debouncing delay
   delay(10);
 }

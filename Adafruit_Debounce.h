@@ -21,12 +21,14 @@ public:
   bool isReleased();
   bool justPressed();
   bool justReleased();
+  bool isLongPressed(uint32_t duration);
 
 private:
   int16_t _pin;
   bool _polarity;
   bool _buttonState;
   bool _lastButtonState;
+  uint32_t _lastPressTime;
 };
 
 #endif // ADAFRUIT_DEBOUNCE_H
