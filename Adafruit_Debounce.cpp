@@ -157,11 +157,19 @@ bool Adafruit_Debounce::justReleased() {
   return (_buttonState != _lastButtonState) && (_buttonState != _polarity);
 }
 
+
 /**
- * @brief Check if the button is long pressed
+ * @brief Check if the button is long pressed.
  *
- * @return true If the button is pressed for longer than duration specified
- * @return false Otherwise.
+ * This function checks if the button has been pressed continuously for a
+ * duration longer than the specified time.
+ *
+ * @param duration The time (in milliseconds) for a button press to be
+ * considered 'long pressed'.
+ *
+ * @return true if the button has been pressed continuously for at least the
+ * specified duration.
+ * @return false otherwise.
  */
 bool Adafruit_Debounce::isLongPressed(uint32_t duration) {
   if (isPressed()) {
