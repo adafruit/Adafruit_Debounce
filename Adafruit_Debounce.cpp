@@ -157,7 +157,6 @@ bool Adafruit_Debounce::justReleased() {
   return (_buttonState != _lastButtonState) && (_buttonState != _polarity);
 }
 
-
 /**
  * @brief Check if the button is long pressed.
  *
